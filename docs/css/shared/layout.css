@@ -1,0 +1,278 @@
+/* ============================================================
+   Silver Glass — layout.css
+   The frame around the content: container, header, nav, footer,
+   breadcrumbs. Loaded after main.css, before components.css.
+   ============================================================ */
+
+/* ---- Container ---- */
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--sp-5);
+}
+
+.container.narrow { max-width: 880px; }
+
+/* Vertical rhythm comes from here so every page lands the same. */
+.page { padding-block: var(--sp-7) var(--sp-8); }
+main.container > *:last-child { margin-bottom: 0; }
+
+/* ---- Header ---- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+
+  /* --glass-strong, not --glass: the header covers scrolling
+     content, so it leans on its .90 alpha rather than on blur. */
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border-bottom: 1px solid var(--hairline);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+.nav__brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink-900);
+  letter-spacing: -.02em;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+.nav__brand:hover { color: var(--accent-strong); }
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  display: inline-block;
+  padding: .4rem .7rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink-500);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  border-bottom: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.nav__link:hover {
+  background: var(--accent-soft);
+  color: var(--ink-900);
+}
+
+.nav__link.is-active {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+.nav__spacer { flex-grow: 1; }
+
+/* Dropdown — opens on focus-within, so it is keyboard-operable
+   with no JavaScript. */
+.nav__dd { position: relative; }
+
+.nav__dd > .nav__link::after {
+  content: "▾";
+  margin-left: .35em;
+  font-size: .8em;
+  opacity: .7;
+}
+
+.nav__dd__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 190px;
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-2);
+
+  /* Content-covering overlay: opaque, no blur. */
+  background: var(--surface-solid);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s;
+}
+
+.nav__dd:hover .nav__dd__menu,
+.nav__dd:focus-within .nav__dd__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav__dd__menu a {
+  display: block;
+  padding: .45rem .6rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink-700);
+  font-size: var(--fs-sm);
+  border-bottom: none;
+}
+
+.nav__dd__menu a:hover {
+  background: var(--accent-soft);
+  color: var(--ink-900);
+}
+
+.nav__dd__menu .is-active {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+/* ---- Mobile toggle ---- */
+
+.nav__toggle {
+  display: none;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--ink-900);
+  background: var(--glass-faint);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* ---- Breadcrumbs ---- */
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--ink-400);
+}
+
+.breadcrumbs a { color: var(--ink-500); border-bottom: none; }
+.breadcrumbs a:hover { color: var(--accent-strong); }
+.breadcrumbs .sep { color: var(--silver-500); }
+
+/* ---- Footer ---- */
+
+.site-footer {
+  margin-top: var(--sp-8);
+  padding-block: var(--sp-6);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-sm);
+  color: var(--ink-500);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+.site-footer__brand {
+  font-weight: 700;
+  color: var(--ink-900);
+  letter-spacing: -.02em;
+  display: block;
+  margin-bottom: var(--sp-2);
+  border-bottom: none;
+}
+
+.site-footer__col h3 {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-400);
+  margin-bottom: var(--sp-2);
+}
+
+.site-footer__col ul { list-style: none; margin: 0; padding: 0; }
+.site-footer__col li { margin-bottom: var(--sp-1); }
+.site-footer__col a { color: var(--ink-500); border-bottom: none; }
+.site-footer__col a:hover { color: var(--accent-strong); }
+
+.site-footer__base {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-400);
+  font-size: var(--fs-xs);
+}
+
+/* ---- Responsive: the collapse below 900px ---- */
+
+@media (max-width: 900px) {
+  .nav__toggle { display: inline-flex; }
+
+  .nav__links {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-1);
+    padding: var(--sp-4);
+    overflow-y: auto;
+
+    /* Covers page content entirely — solid, and no blur. A
+       translucent panel nested inside the blurred header can have
+       its background paint suppressed. */
+    background: var(--surface-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: var(--shadow-md);
+
+    display: none;
+  }
+
+  .nav__links.is-open { display: flex; }
+  .nav__spacer { display: none; }
+  .nav__link { padding: .7rem .8rem; font-size: var(--fs-body); }
+
+  .nav__dd__menu {
+    position: static;
+    box-shadow: none;
+    border: 0;
+    border-left: 2px solid var(--hairline);
+    border-radius: 0;
+    margin: 0 0 var(--sp-2) var(--sp-3);
+    padding: 0 0 0 var(--sp-2);
+    background: transparent;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}

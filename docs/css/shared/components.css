@@ -1,0 +1,389 @@
+/* ============================================================
+   Silver Glass — components.css
+   Every class a page may compose from. A page stylesheet is only
+   for layouts none of these cover.
+   ============================================================ */
+
+/* ---- Surfaces ---- */
+
+.panel {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+}
+
+.section { margin-block: var(--sp-7); }
+.section > h2 { margin-bottom: var(--sp-4); }
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-7) var(--sp-6);
+  text-align: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -40% 20% auto -20%;
+  height: 320px;
+  background: radial-gradient(closest-side, var(--glass-faint), transparent);
+  pointer-events: none;
+}
+
+.hero > * { position: relative; z-index: 1; }
+.hero p { max-width: 62ch; margin-inline: auto; }
+
+/* ---- Cards ---- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: var(--sp-4);
+}
+
+.card {
+  display: block;
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+  color: inherit;
+}
+
+a.card {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+a.card:hover,
+a.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+a.card:hover .card__title,
+a.card:focus-visible .card__title { color: var(--accent-strong); }
+
+.card__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: var(--sp-3);
+}
+
+.card__title {
+  font-size: var(--fs-h3);
+  font-weight: 650;
+  color: var(--ink-900);
+  margin-bottom: var(--sp-2);
+  letter-spacing: -.01em;
+  transition: color .15s ease;
+}
+
+.card__desc {
+  color: var(--ink-500);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.card__more {
+  margin-top: var(--sp-3);
+  color: var(--accent);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* ---- Feature list ---- */
+
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.feature-list li {
+  margin: 0;
+  background: var(--glass-faint);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-3) var(--sp-4);
+  color: var(--ink-900);
+  font-size: var(--fs-sm);
+}
+
+/* ---- Accordion (native <details>) ---- */
+
+.accordion { display: grid; gap: var(--sp-2); }
+
+.acc {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.acc > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: var(--sp-4) var(--sp-5);
+  font-weight: 600;
+  color: var(--ink-900);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.acc > summary::-webkit-details-marker { display: none; }
+
+.acc > summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.acc[open] > summary::after { content: "\2013"; }
+
+.acc__body {
+  padding: 0 var(--sp-5) var(--sp-4);
+  color: var(--ink-700);
+  font-size: var(--fs-sm);
+}
+
+.acc__body > *:last-child { margin-bottom: 0; }
+
+/* ---- Code ----
+   The dark code block is the one sanctioned literal outside the token
+   file — see .agents/design/components.md. The intent colours below
+   are the second exception, also sanctioned there. Do not add more. */
+
+pre {
+  background: #1c2431;
+  color: var(--silver-050);
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  padding: var(--sp-4);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  margin: 0 0 var(--sp-4);
+}
+
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.code-label {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-400);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: var(--sp-2);
+}
+
+/* ---- Tables ---- */
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  margin-bottom: var(--sp-4);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+th, td {
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--hairline);
+  white-space: nowrap;
+}
+
+th {
+  color: var(--ink-900);
+  font-weight: 650;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--accent-soft); }
+td code { white-space: nowrap; }
+
+/* ---- Definition list ---- */
+
+.deflist {
+  margin: 0 0 var(--sp-4);
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.deflist__row {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.deflist__row:last-child { border-bottom: 0; }
+
+.deflist__term {
+  color: var(--ink-900);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+
+.deflist__row > div:last-child { color: var(--ink-500); font-size: var(--fs-sm); }
+
+@media (max-width: 640px) {
+  .deflist__row { grid-template-columns: 1fr; gap: var(--sp-1); }
+}
+
+/* ---- Badges and chips ---- */
+
+.badge {
+  display: inline-block;
+  padding: .2em .6em;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: .02em;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border: 1px solid var(--hairline);
+}
+
+.badge--ok   { background: rgba(31, 122, 84, .12);  color: #1f7a54; border-color: rgba(31, 122, 84, .28); }
+.badge--warn { background: rgba(154, 107, 22, .12); color: #9a6b16; border-color: rgba(154, 107, 22, .28); }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+.chip {
+  display: inline-block;
+  padding: .3em .75em;
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  background: var(--glass-faint);
+  border: 1px solid var(--hairline);
+  color: var(--ink-700);
+}
+
+a.chip { border-bottom: 1px solid var(--hairline); }
+a.chip:hover { background: var(--accent-soft); color: var(--accent-strong); }
+
+/* ---- Buttons ---- */
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.btn {
+  display: inline-block;
+  padding: .6rem 1.25rem;
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  background: var(--glass-strong);
+  border: 1px solid var(--hairline);
+  color: var(--ink-900);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-color: transparent;
+  color: var(--white);
+}
+
+/* Flat rather than a two-stop gradient: there is no darker
+   --sponsor token, and a second stop would mean a literal here. */
+.btn--sponsor {
+  background: var(--sponsor);
+  border-color: transparent;
+  color: var(--white);
+}
+
+/* ---- Callouts ---- */
+
+.callout {
+  display: flex;
+  gap: var(--sp-3);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: var(--sp-4) var(--sp-5);
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+.callout__icon { line-height: 1.5; flex-shrink: 0; }
+.callout__body > *:last-child { margin-bottom: 0; }
+.callout--warn   { border-left-color: #9a6b16; }
+.callout--danger { border-left-color: var(--sponsor); }
+
+/* ---- Eyebrow and lead ---- */
+
+.eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-400);
+  margin-bottom: var(--sp-2);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  color: var(--ink-500);
+  line-height: 1.6;
+  max-width: 68ch;
+}

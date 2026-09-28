@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>lobby — RBZagan</title>
+  <meta name="description" content="lobby — a Roblox package for the Minigame universe. Built with Rojo and Luau, with a server-authoritative design.">
+
+  <link rel="stylesheet" href="../css/shared/main.css">
+  <link rel="stylesheet" href="../css/shared/layout.css">
+  <link rel="stylesheet" href="../css/shared/components.css">
+
+  <script>window.SITE_ROOT = "../"; window.PAGE_SECTION = "lobby";</script>
+  <script src="../js/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page">
+    <nav aria-label="Breadcrumb">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">lobby</span>
+      </div>
+    </nav>
+
+    <header>
+      <div class="eyebrow">Roblox package</div>
+      <h1>lobby</h1>
+      <p class="lead">
+        The lobby for the Minigame universe — a Roblox package written in Luau
+        and developed as a source tree with Rojo, so the package is committed as
+        reviewable files rather than as a place file.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>What it is for</h2>
+      <p>
+        A lobby is where a player arrives before they play. It is the first
+        thing the universe loads and the last thing they see before a match, so
+        it carries the session entry point, the navigation between game modes,
+        and the presentation layer that all of them share.
+      </p>
+      <p>
+        It is a package rather than a place, so the game modes it fronts can
+        depend on it without duplicating it.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>How it is built</h2>
+      <div class="card-grid">
+        <a class="card" href="getting-started.html">
+          <div class="card__icon" aria-hidden="true">&#9881;</div>
+          <div class="card__title">Getting started</div>
+          <div class="card__desc">The stack it runs on, and how a game mode consumes it.</div>
+          <div class="card__more" aria-hidden="true">&rarr;</div>
+        </a>
+        <a class="card" href="architecture.html">
+          <div class="card__icon" aria-hidden="true">&#9635;</div>
+          <div class="card__title">Architecture</div>
+          <div class="card__desc">The four source directories and where each one lands in Roblox.</div>
+          <div class="card__more" aria-hidden="true">&rarr;</div>
+        </a>
+        <a class="card" href="conventions.html">
+          <div class="card__icon" aria-hidden="true">&#9878;</div>
+          <div class="card__title">How it works</div>
+          <div class="card__desc">Where authority sits, and why the boundary is drawn where it is.</div>
+          <div class="card__more" aria-hidden="true">&rarr;</div>
+        </a>
+        <a class="card" href="roadmap.html">
+          <div class="card__icon" aria-hidden="true">&#9873;</div>
+          <div class="card__title">Roadmap</div>
+          <div class="card__desc">What is planned, in the order it is planned.</div>
+          <div class="card__more" aria-hidden="true">&rarr;</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel">
+        <h2>Design commitments</h2>
+        <ul class="feature-list">
+          <li><strong>Server-authoritative.</strong> The client asks; the server decides. No client-supplied result is ever trusted.</li>
+          <li><strong>Strictly typed.</strong> Every part of the package declares its types rather than leaving them to be inferred.</li>
+          <li><strong>Source, not place.</strong> Rojo keeps the instance tree derived from files, so every change is reviewable.</li>
+          <li><strong>No runtime dependencies.</strong> The package is self-contained apart from Roblox itself.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!--
+  Shared header. Injected by js/site.js — not a valid page on its own,
+  {{ROOT}} is not a path. Never open this file directly to check it.
+-->
+<header class="site-header">
+  <div class="container">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="{{ROOT}}index.html">RBZagan</a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">&#9776;</button>
+
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" data-section="" href="{{ROOT}}index.html">Home</a></li>
+        <li>
+          <div class="nav__dd">
+            <a class="nav__link" data-section="lobby" href="{{ROOT}}lobby/index.html" aria-haspopup="true">Projects</a>
+            <ul class="nav__dd__menu">
+              <li><a data-section="lobby" href="{{ROOT}}lobby/index.html">lobby</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav__spacer" aria-hidden="true"></li>
+        <li><a class="btn btn--primary" href="https://github.com/RBZagan" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

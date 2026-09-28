@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roadmap — lobby</title>
+  <meta name="description" content="What is planned for the lobby package, in the order it is planned.">
+
+  <link rel="stylesheet" href="../css/shared/main.css">
+  <link rel="stylesheet" href="../css/shared/layout.css">
+  <link rel="stylesheet" href="../css/shared/components.css">
+  <link rel="stylesheet" href="css/roadmap.css">
+
+  <script>window.SITE_ROOT = "../"; window.PAGE_SECTION = "lobby";</script>
+  <script src="../js/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page">
+    <nav aria-label="Breadcrumb">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="index.html">lobby</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Roadmap</span>
+      </div>
+    </nav>
+
+    <header>
+      <h1>Roadmap</h1>
+      <p class="lead">
+        The order things are being built in, and roughly why each one is
+        sequenced where it is.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>Stages</h2>
+      <ol class="stages">
+        <li class="stage">
+          <div class="stage__marker" aria-hidden="true">1</div>
+          <div class="stage__body">
+            <div class="stage__title">Project scaffold</div>
+            <p>
+              A Rojo project that maps the four source directories onto Roblox
+              services, plus the strict-mode typing configuration. Until this
+              lands there is no tree to build inside.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage__marker" aria-hidden="true">2</div>
+          <div class="stage__body">
+            <div class="stage__title">First module and entry point</div>
+            <p>
+              One real module, wired as the package's public entry point. It
+              exists to prove the structure end to end — sync, type-check,
+              require — before the package grows.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage__marker" aria-hidden="true">3</div>
+          <div class="stage__body">
+            <div class="stage__title">Session entry</div>
+            <p>
+              Player join and leave, the authoritative session state that backs
+              it, and the remotes a game mode calls to drive a transition.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage__marker" aria-hidden="true">4</div>
+          <div class="stage__body">
+            <div class="stage__title">Presentation layer</div>
+            <p>
+              The shared lobby UI — navigation between game modes, and the
+              client-side prediction that makes a transition feel immediate
+              while the server confirms it.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Not planned</h2>
+      <p>
+        These are deliberately out of scope rather than deferred, so nobody
+        builds something the package was never going to accept:
+      </p>
+      <ul>
+        <li>Game-mode logic. The lobby fronts the modes; it does not contain them.</li>
+        <li>Matchmaking. Selection happens against a service the package treats as opaque.</li>
+        <li>A client-authoritative data path. See <a href="conventions.html">how it works</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>
