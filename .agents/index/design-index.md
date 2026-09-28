@@ -32,7 +32,7 @@ it.
 |---|---|
 | [`../design/glass-surfaces.md`](../design/glass-surfaces.md) | The three glass tiers, the border and hairline, and why there are two borders. |
 | [`../design/surface-recipe.md`](../design/surface-recipe.md) | The five declarations that make a surface, the hover lift, and what never to put glass over. |
-| [`../design/geometry-and-type.md`](../design/geometry-and-type.md) | Shadows, radii, the measure, the header height, and the system fonts. |
+| [`../design/geometry-and-type.md`](../design/geometry-and-type.md) | Shadows, radii, the measure, the rail width, and the system fonts. |
 
 ## structure
 
