@@ -51,27 +51,37 @@
     }
   }
 
-  /* ---- Mobile navigation --------------------------------------- */
+  /* ---- Drawer navigation ---------------------------------------
+
+     The open state lives on the mount point rather than on the link
+     list, because it is the whole rail that slides — links included.
+     The scrim sits outside #site-header so it can span the viewport
+     while the rail is only as wide as itself. */
 
   function wireToggle(scope) {
     var toggle = scope.querySelector('.nav__toggle');
-    var links = scope.querySelector('.nav__links');
-    if (!toggle || !links) return;
+    var scrim = document.querySelector('.nav__scrim');
+    if (!toggle) return;
 
     function setOpen(open) {
-      links.classList.toggle('is-open', open);
+      scope.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.textContent = open ? '✕' : '☰';
+      if (scrim) scrim.classList.toggle('is-open', open);
     }
 
     setOpen(false);
 
     toggle.addEventListener('click', function () {
-      setOpen(!links.classList.contains('is-open'));
+      setOpen(!scope.classList.contains('is-open'));
     });
 
+    if (scrim) {
+      scrim.addEventListener('click', function () { setOpen(false); });
+    }
+
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && links.classList.contains('is-open')) {
+      if (e.key === 'Escape' && scope.classList.contains('is-open')) {
         setOpen(false);
         toggle.focus();
       }

@@ -22,8 +22,7 @@ Three elevations, and the gaps between them are wide on purpose — a glass desi
 reads as flat without a clear separation between "resting" and "raised".
 
 * `--shadow-sm` — at rest. Every panel and card.
-* `--shadow-md` — content-covering overlays, and the sticky header when it
-  detaches.
+* `--shadow-md` — content-covering overlays, and the rail when it is a drawer.
 * `--shadow-lg` — hover only. A lifted card.
 
 Note the shadow ink is `--ink-900` at low alpha rather than black. A neutral
@@ -38,17 +37,25 @@ reads as depth.
 | `--radius` | `16px` | Panels, cards, tables — the default. |
 | `--radius-lg` | `22px` | The hero and other one-per-page containers. |
 | `--maxw` | `1120px` | Content max width. |
-| `--header-h` | `64px` | Header height, and the scroll-padding that keeps anchors clear of it. |
+| `--rail-w` | `248px` | Width of the navigation rail, and the scroll-padding that keeps anchors clear of it. |
 
 `--maxw` has one companion, `.narrow`, which caps at `880px` for text-heavy
 reading pages. A long line of prose is the one thing the silver field actively
 punishes — there is no background texture to give the eye a ruler, so measure is
 the only cue the reader gets.
 
-**`--header-h` is not just the header's height.** The sticky header will cover
-the heading a `#anchor` link was aiming at unless the page sets
-`scroll-padding-top: calc(var(--header-h) + 16px)`. That is in `main.css`
-already; do not re-derive it per page.
+**`--rail-w` is not just the rail's width.** The sticky rail will cover the
+heading a `#anchor` link was aiming at unless the page reserves room for it, so
+`main.css` sets
+
+```css
+html { scroll-padding: … calc(var(--rail-w) + var(--sp-6)); }
+```
+
+The left value is the one that matters — the rail is on the left, so an anchor
+lands underneath it. Do not re-derive this per page. `layout.css` relaxes the
+left value below 900px, where the rail is an off-canvas drawer that reserves no
+track.
 
 ## Type
 

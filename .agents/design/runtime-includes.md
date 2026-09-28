@@ -63,7 +63,8 @@ is the loader working, not a bug.
 5. Sets `.is-active` on the nav link whose `data-section` matches
    `PAGE_SECTION`.
 6. Wires `.nav__toggle` — a real `<button>`, `aria-expanded` toggled, the
-   panel's class toggled, `Escape` closes it.
+   rail's `is-open` class toggled, the scrim opens and closes with it, and
+   `Escape` closes it and returns focus to the button.
 7. Injects a favicon as an inline data URI — see
    [`principles.md`](principles.md) §1.
 8. Stamps the current year into the footer's `[data-year]` element.

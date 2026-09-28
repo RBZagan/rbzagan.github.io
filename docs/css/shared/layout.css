@@ -1,7 +1,8 @@
 /* ============================================================
    Silver Glass — layout.css
-   The frame around the content: container, header, nav, footer,
-   breadcrumbs. Loaded after main.css, before components.css.
+   The frame around the content: the page shell, the navigation
+   rail, container, footer, breadcrumbs. Loaded after main.css,
+   before components.css.
    ============================================================ */
 
 /* ---- Container ---- */
@@ -19,31 +20,83 @@
 .page { padding-block: var(--sp-7) var(--sp-8); }
 main.container > *:last-child { margin-bottom: 0; }
 
-/* ---- Header ---- */
+/* ---- Page shell ----
+
+   body is the grid: the rail takes the first column, page content
+   the second, the footer spans both. Every page already has
+   #site-header, main and #site-footer as direct children of body,
+   so the shell costs no markup.
+
+   The tracks are capped and the whole assembly is centred, so a
+   wide screen does not strand the rail at the edge of the viewport.
+   The fixed field still belongs to body, which stays full width. */
+
+body {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, var(--maxw));
+  justify-content: center;
+  column-gap: var(--sp-5);
+  padding: var(--sp-4);
+}
+
+#site-header {
+  /* Sticky on the mount point, not on .site-header: a sticky child
+     of a full-height grid item has no travel to stick through. */
+  position: sticky;
+  top: var(--sp-4);
+  align-self: start;
+
+  /* A flex row with one child, so that align-items: stretch gives
+     .site-header the definite height its inner scroll area needs. */
+  display: flex;
+
+  max-height: calc(100vh - var(--sp-8));
+  max-height: calc(100dvh - var(--sp-8));
+  z-index: 50;
+}
+
+main { grid-column: 2; }
+
+/* The footer aligns with the content column rather than spanning the
+   grid. Spanning would put its container's centring on the full
+   viewport width, so the footer's text would not line up with the
+   page above it. */
+#site-footer { grid-column: 2; }
+
+/* ---- Rail ----
+
+   A column in three bands: the brand pinned at the top, the links
+   scrolling in the middle, the call to action pinned at the
+   bottom. The rail travels with the reader, but it never covers
+   anything — it has its own grid track. */
 
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  height: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 
-  /* --glass-strong, not --glass: the header covers scrolling
+  /* --glass-strong, not --glass: the rail travels over scrolling
      content, so it leans on its .90 alpha rather than on blur. */
   background: var(--glass-strong);
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
-  border-bottom: 1px solid var(--hairline);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
 
 .nav {
-  height: 100%;
+  flex: 1 1 auto;
   display: flex;
-  align-items: center;
-  gap: var(--sp-5);
+  flex-direction: column;
+  min-height: 0;
+  padding: var(--sp-4) var(--sp-3) var(--sp-3);
 }
 
 .nav__brand {
+  flex: 0 0 auto;
+  padding: 0 var(--sp-2) var(--sp-3);
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--ink-900);
@@ -55,17 +108,50 @@ main.container > *:last-child { margin-bottom: 0; }
 .nav__brand:hover { color: var(--accent-strong); }
 
 .nav__links {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
+  /* min-height: 0 is what lets this shrink below its content size.
+     Without it a flex item refuses to shrink, overflow-y never
+     engages, and a long list pushes the rail past the viewport
+     instead of scrolling inside it. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+
+  /* Stops the list chaining the page scroll at its end, which is
+     what makes it read as a rail rather than a scroll trap. */
+  overscroll-behavior: contain;
+
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 var(--sp-1);
+}
+
+.nav__links > li { margin-bottom: var(--sp-4); }
+.nav__links > li:last-child { margin-bottom: 0; }
+
+.nav__group__label {
+  margin: 0 0 var(--sp-1);
+  padding: 0 var(--sp-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-400);
+}
+
+/* Nested items stay open rather than hiding behind a hover. A
+   dropdown is unreachable by touch and does not survive a long
+   list; an indented group needs no script to open and none to
+   close. */
+.nav__sub {
+  list-style: none;
+  margin: 0 0 0 var(--sp-4);
+  padding: 0 0 0 var(--sp-2);
+  border-left: 2px solid var(--hairline);
 }
 
 .nav__link {
-  display: inline-block;
-  padding: .4rem .7rem;
+  display: block;
+  padding: .5rem .7rem;
   border-radius: var(--radius-sm);
   color: var(--ink-500);
   font-size: var(--fs-sm);
@@ -85,74 +171,27 @@ main.container > *:last-child { margin-bottom: 0; }
   font-weight: 650;
 }
 
-.nav__spacer { flex-grow: 1; }
-
-/* Dropdown — opens on focus-within, so it is keyboard-operable
-   with no JavaScript. */
-.nav__dd { position: relative; }
-
-.nav__dd > .nav__link::after {
-  content: "▾";
-  margin-left: .35em;
-  font-size: .8em;
-  opacity: .7;
+.nav__foot {
+  flex: 0 0 auto;
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-1) 0;
+  border-top: 1px solid var(--hairline);
 }
 
-.nav__dd__menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  min-width: 190px;
-  list-style: none;
-  margin: 0;
-  padding: var(--sp-2);
+.nav__foot .btn { width: 100%; }
 
-  /* Content-covering overlay: opaque, no blur. */
-  background: var(--surface-solid);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
+/* ---- Menu button ----
 
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4px);
-  transition: opacity .15s ease, transform .15s ease, visibility .15s;
-}
-
-.nav__dd:hover .nav__dd__menu,
-.nav__dd:focus-within .nav__dd__menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.nav__dd__menu a {
-  display: block;
-  padding: .45rem .6rem;
-  border-radius: var(--radius-sm);
-  color: var(--ink-700);
-  font-size: var(--fs-sm);
-  border-bottom: none;
-}
-
-.nav__dd__menu a:hover {
-  background: var(--accent-soft);
-  color: var(--ink-900);
-}
-
-.nav__dd__menu .is-active {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-weight: 650;
-}
-
-/* ---- Mobile toggle ---- */
+   Hidden on desktop, where the rail is always on screen. There is
+   no longer a bar for it to sit in, so on narrow screens it floats
+   over the corner of the viewport. */
 
 .nav__toggle {
   display: none;
-  margin-left: auto;
+  position: fixed;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 60;
   width: 44px;
   height: 44px;
   padding: 0;
@@ -161,10 +200,31 @@ main.container > *:last-child { margin-bottom: 0; }
   font-size: 1.25rem;
   line-height: 1;
   color: var(--ink-900);
-  background: var(--glass-faint);
-  border: 1px solid var(--hairline);
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
+}
+
+/* The scrim behind an open drawer. It hides page content, so it
+   is a flat tint rather than glass. */
+.nav__scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--ink-900);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease, visibility .18s;
+}
+
+.nav__scrim.is-open {
+  opacity: .32;
+  visibility: visible;
 }
 
 /* ---- Breadcrumbs ---- */
@@ -233,46 +293,69 @@ main.container > *:last-child { margin-bottom: 0; }
   font-size: var(--fs-xs);
 }
 
-/* ---- Responsive: the collapse below 900px ---- */
+/* ---- Responsive: the rail becomes a drawer below 900px ---- */
 
 @media (max-width: 900px) {
+  /* One column, and room at the top for the floating menu button
+     so it never sits on the page's own heading. */
+  body {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: calc(var(--sp-3) + 44px + var(--sp-3));
+  }
+
+  main { grid-column: 1; }
+
+  /* The rail no longer reserves a track, so it must not reserve
+     scroll padding for one either. */
+  html { scroll-padding-left: var(--sp-4); }
+
   .nav__toggle { display: inline-flex; }
+  .nav__scrim { display: block; }
 
-  .nav__links {
+  /* The button floats over page content, so it is solid for the same
+     reason the drawer is. */
+  .nav__toggle {
+    background: var(--surface-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  #site-header {
+    /* An off-canvas drawer, so it is a surface that covers content:
+       solid, and no blur. A translucent panel nested inside a
+       blurred parent can have its background paint suppressed. */
     position: fixed;
-    inset: var(--header-h) 0 0 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--sp-1);
-    padding: var(--sp-4);
-    overflow-y: auto;
 
-    /* Covers page content entirely — solid, and no blur. A
-       translucent panel nested inside the blurred header can have
-       its background paint suppressed. */
+    /* Starts below the floating button, which is the close control
+       — the two must never occupy the same corner. */
+    inset: calc(var(--sp-3) + 44px + var(--sp-3)) auto 0 0;
+    width: min(84vw, 320px);
+    max-height: none;
+    padding: 0 var(--sp-3) var(--sp-3);
+
+    /* Above the scrim it opens over. */
+    z-index: 60;
+
     background: var(--surface-solid);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     box-shadow: var(--shadow-md);
-
-    display: none;
+    transform: translateX(-100%);
+    transition: transform .18s ease;
   }
 
-  .nav__links.is-open { display: flex; }
-  .nav__spacer { display: none; }
+  #site-header.is-open { transform: translateX(0); }
+
+  /* The panel gives up its glass along with the drawer. Leaving a
+     blurred surface inside an opaque one buys nothing and is exactly
+     the nesting the rule warns about. */
+  .site-header {
+    border-radius: var(--radius);
+    border-color: var(--hairline);
+    background: var(--surface-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .nav__link { padding: .7rem .8rem; font-size: var(--fs-body); }
-
-  .nav__dd__menu {
-    position: static;
-    box-shadow: none;
-    border: 0;
-    border-left: 2px solid var(--hairline);
-    border-radius: 0;
-    margin: 0 0 var(--sp-2) var(--sp-3);
-    padding: 0 0 0 var(--sp-2);
-    background: transparent;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-  }
 }
