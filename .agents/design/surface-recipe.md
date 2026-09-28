@@ -71,11 +71,10 @@ box-shadow: var(--shadow-md);
 ### Why
 
 When such an overlay is nested inside another element that already has
-`backdrop-filter` — the mobile panel inside the blurred sticky header is the
-canonical case — the child's background paint can be **suppressed** in browsers
-and environments where `backdrop-filter` is unsupported or disabled. What you
-get instead is the content behind showing through a panel that was supposed to
-be covering it.
+`backdrop-filter` — anything inside the blurred rail is the canonical case —
+the child's background paint can be **suppressed** in browsers and environments
+where `backdrop-filter` is unsupported or disabled. What you get instead is the
+content behind showing through a panel that was supposed to be covering it.
 
 And a blur over content you are *hiding* adds nothing. The one thing the overlay
 needs is to be opaque, and the one thing that is least reliable is the blur.
@@ -87,9 +86,9 @@ reader see text they should not be reading?** If yes, it is a content-covering
 overlay and it is solid. If no — a dropdown arrow, a hover highlight, a divider —
 it can be glass.
 
-A nav link highlighting on hover is glass. A nav panel that slides over the page
-is solid. The distinction is whether it *hides* anything, not whether it is part
-of the navigation.
+A nav link highlighting on hover is glass. The same rail, as a drawer sliding over
+the page, is solid. The distinction is whether it *hides* anything, not whether
+it is part of the navigation.
 
 ## What must not be done
 

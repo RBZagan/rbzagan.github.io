@@ -39,7 +39,7 @@ it.
 | File | Purpose |
 |---|---|
 | [`../design/file-organization.md`](../design/file-organization.md) | Where each CSS layer, the loader, and the partials live, and which file gets a new rule. |
-| [`../design/layout-and-chrome.md`](../design/layout-and-chrome.md) | Container, sticky header, nav, footer, and the two responsive behaviours. |
+| [`../design/layout-and-chrome.md`](../design/layout-and-chrome.md) | The page shell, the navigation rail, container, footer, and the two responsive behaviours. |
 | [`../design/runtime-includes.md`](../design/runtime-includes.md) | The two globals a page sets, the `{{ROOT}}` token, and the loader that assembles the chrome. |
 
 ## authoring

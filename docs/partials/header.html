@@ -1,27 +1,38 @@
 <!--
   Shared header. Injected by js/site.js — not a valid page on its own,
   {{ROOT}} is not a path. Never open this file directly to check it.
+
+  This is the rail: a column that sits in the first grid track on
+  wide screens and slides in as a drawer below 900px. New sections
+  are a new <li> with a label and a nested list — the scroll area
+  absorbs the growth, nothing else has to change.
 -->
 <header class="site-header">
-  <div class="container">
-    <nav class="nav" aria-label="Primary">
-      <a class="nav__brand" href="{{ROOT}}index.html">RBZagan</a>
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__brand" href="{{ROOT}}index.html">RBZagan</a>
 
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">&#9776;</button>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">&#9776;</button>
 
-      <ul class="nav__links" id="nav-links">
-        <li><a class="nav__link" data-section="" href="{{ROOT}}index.html">Home</a></li>
-        <li>
-          <div class="nav__dd">
-            <a class="nav__link" data-section="lobby" href="{{ROOT}}lobby/index.html" aria-haspopup="true">Projects</a>
-            <ul class="nav__dd__menu">
-              <li><a data-section="lobby" href="{{ROOT}}lobby/index.html">lobby</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav__spacer" aria-hidden="true"></li>
-        <li><a class="btn btn--primary" href="https://github.com/RBZagan" target="_blank" rel="noopener">GitHub</a></li>
-      </ul>
-    </nav>
-  </div>
+    <ul class="nav__links" id="nav-links">
+      <li>
+        <p class="nav__group__label" id="nav-label-site">Site</p>
+        <ul class="nav__sub" aria-labelledby="nav-label-site">
+          <li><a class="nav__link" data-section="" href="{{ROOT}}index.html">Home</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <p class="nav__group__label" id="nav-label-projects">Projects</p>
+        <ul class="nav__sub" aria-labelledby="nav-label-projects">
+          <li><a class="nav__link" data-section="lobby" href="{{ROOT}}lobby/index.html">lobby</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav__foot">
+      <a class="btn btn--primary" href="https://github.com/RBZagan" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
 </header>
+
+<div class="nav__scrim" aria-hidden="true"></div>

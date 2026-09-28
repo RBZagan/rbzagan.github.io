@@ -48,7 +48,7 @@
   --radius:         16px;
   --radius-lg:      22px;
   --maxw:           1120px;
-  --header-h:       64px;
+  --rail-w:         248px;
 
   /* ---- Type ---- */
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -82,8 +82,11 @@
 *::after { box-sizing: border-box; }
 
 html {
-  /* Keeps an #anchor target clear of the sticky header. */
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  /* Keeps an #anchor target clear of the sticky rail on the left.
+     layout.css relaxes the left value below 900px, where the rail is
+     an off-canvas drawer rather than a column. */
+  scroll-padding: var(--sp-6) var(--sp-4) var(--sp-6)
+                  calc(var(--rail-w) + var(--sp-6));
   -webkit-text-size-adjust: 100%;
 }
 
