@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works — lobby</title>
+  <meta name="description" content="How the lobby package is put together — where authority sits, and why the boundary is drawn where it is.">
+
+  <link rel="stylesheet" href="../css/shared/main.css">
+  <link rel="stylesheet" href="../css/shared/layout.css">
+  <link rel="stylesheet" href="../css/shared/components.css">
+
+  <script>window.SITE_ROOT = "../"; window.PAGE_SECTION = "lobby";</script>
+  <script src="../js/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page">
+    <nav aria-label="Breadcrumb">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="index.html">lobby</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">How it works</span>
+      </div>
+    </nav>
+
+    <header>
+      <h1>How it works</h1>
+      <p class="lead">
+        The shape of the package and the reasoning behind it. This page
+        describes behaviour in plain language — it carries no source.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>One side decides, the other side suggests</h2>
+      <p>
+        Everything a player does reaches the server as a request, and the server
+        decides what actually happened. The player's machine may draw what looks
+        like a successful action immediately, so the interface feels responsive —
+        but that drawing is a guess, and the server confirms or overrules it
+        independently.
+      </p>
+      <p>
+        A client never tells the server that something succeeded. It asks for
+        something to be attempted. That is the difference between a game that is
+        hard to cheat and one that is not, and it is the most important property
+        of the package.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Nothing private reaches a player's machine</h2>
+      <p>
+        Some parts of a game are visible to every player, some are visible to
+        none, and some are visible only to the server. The package keeps those
+        three groups physically separate rather than relying on anyone
+        remembering which is which.
+      </p>
+      <ul class="feature-list">
+        <li><strong>Server-held</strong> — anything that decides an outcome. It never leaves the server.</li>
+        <li><strong>Shared</strong> — the shapes both sides must agree on, such as the format of a message. It carries no secret values.</li>
+        <li><strong>Player-held</strong> — input and display only. Safe to read, because nothing worth hiding is there.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Checked at the boundary</h2>
+      <p>
+        Every message crossing between a player's machine and the server is
+        checked before it is allowed to change anything — including messages
+        that look obviously legitimate. The check is the server's own, not a
+        restatement of what the client said.
+      </p>
+      <p>
+        Where a message describes something physical — that a player reached a
+        target, say — the server works that out for itself rather than taking
+        the client's word for it.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Written to be finished, not started over</h2>
+      <p>
+        Types are declared and checked rather than inferred, so a mistake is
+        caught while it is being written rather than while it is being played.
+        Names follow one consistent scheme, and there is exactly one public way
+        in — which is what lets the inside of the package change without breaking
+        anything that depends on it.
+      </p>
+    </section>
+
+    <aside class="callout" aria-label="Consumer contract">
+      <div class="callout__icon" aria-hidden="true">&#9432;</div>
+      <div class="callout__body">
+        <p>
+          For anyone building on this package: the trust boundary described
+          above is a contract, not an implementation detail. A consumer that
+          assumes the server will confirm everything is relying on a guarantee
+          the package is designed to keep.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

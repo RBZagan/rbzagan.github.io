@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture — lobby</title>
+  <meta name="description" content="How the lobby package is laid out — the four areas of the source tree, what each one holds, and why the split is where it is.">
+
+  <link rel="stylesheet" href="../css/shared/main.css">
+  <link rel="stylesheet" href="../css/shared/layout.css">
+  <link rel="stylesheet" href="../css/shared/components.css">
+
+  <script>window.SITE_ROOT = "../"; window.PAGE_SECTION = "lobby";</script>
+  <script src="../js/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page">
+    <nav aria-label="Breadcrumb">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="index.html">lobby</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Architecture</span>
+      </div>
+    </nav>
+
+    <header>
+      <h1>Architecture</h1>
+      <p class="lead">
+        The package is developed as a source tree rather than as a place file,
+        and the tree is split four ways. What follows describes the four areas
+        and what each one is for.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>The four areas</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Area</th>
+              <th scope="col">Runs on</th>
+              <th scope="col">Holds</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Server</td>
+              <td>The server</td>
+              <td>Everything that decides an outcome. This is the only area that holds state the game depends on.</td>
+            </tr>
+            <tr>
+              <td>Client</td>
+              <td>Each player's machine</td>
+              <td>Input and display. It reacts; it does not decide.</td>
+            </tr>
+            <tr>
+              <td>Shared</td>
+              <td>Both</td>
+              <td>The shapes and constants both sides must agree on, with no secret values among them.</td>
+            </tr>
+            <tr>
+              <td>Assets</td>
+              <td>Both</td>
+              <td>Models, meshes, and other 3D content, kept apart from the code that uses it.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why the split is where it is</h2>
+      <p>
+        The four areas are not a filing convenience. Each is a trust boundary,
+        and the boundary is the reason the layout is worth keeping.
+      </p>
+      <ul class="feature-list">
+        <li><strong>Server</strong> — a player can ask for something to happen; they cannot assert that it did. Keeping the deciding code in one place is what makes that true by construction rather than by review.</li>
+        <li><strong>Client</strong> — a visual effect drawn locally is a prediction. It is allowed and expected, because the alternative is a game that feels laggy, and it grants no authority.</li>
+        <li><strong>Shared</strong> — one copy of a shape, so the two sides cannot disagree about what a message means.</li>
+        <li><strong>Assets</strong> — kept out of the source areas entirely, so a model import reads in review as an asset change rather than as code.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Why source, not a place</h2>
+      <p>
+        A Roblox place file is a binary with no reviewable history. Committing a
+        source tree instead means every change is a readable difference, every
+        rename is a rename, and a merge conflict is a conflict two people can
+        both read.
+      </p>
+      <p>
+        The live tree in Studio stays a mirror. That is what makes the rest work:
+        there is exactly one source of truth, and it is on disk.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>One way in</h2>
+      <p>
+        The package exposes a single public entry point. Everything a consumer
+        needs is reachable from it, which keeps the package's internal structure
+        free to change without breaking a dependent. Reaching past it is a sign
+        the boundary is in the wrong place, not that the consumer is being
+        demanding.
+      </p>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

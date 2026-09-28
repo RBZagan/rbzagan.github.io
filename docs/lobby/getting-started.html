@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting started — lobby</title>
+  <meta name="description" content="The stack the lobby package runs on, how it is consumed, and what to expect when you depend on it.">
+
+  <link rel="stylesheet" href="../css/shared/main.css">
+  <link rel="stylesheet" href="../css/shared/layout.css">
+  <link rel="stylesheet" href="../css/shared/components.css">
+
+  <script>window.SITE_ROOT = "../"; window.PAGE_SECTION = "lobby";</script>
+  <script src="../js/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container narrow page">
+    <nav aria-label="Breadcrumb">
+      <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="index.html">lobby</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Getting started</span>
+      </div>
+    </nav>
+
+    <header>
+      <h1>Getting started</h1>
+      <p class="lead">
+        The stack the package runs on, and what depending on it looks like from
+        a game mode's side of the boundary.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>The stack</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Tool</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rojo</td>
+              <td>Maps the source tree onto the live tree, so the package is committed as files rather than as a place file.</td>
+            </tr>
+            <tr>
+              <td>Roblox Studio</td>
+              <td>Hosts the live tree the source tree syncs into.</td>
+            </tr>
+            <tr>
+              <td>Luau</td>
+              <td>The implementation language, in strict mode throughout.</td>
+            </tr>
+            <tr>
+              <td>Lua Language Server</td>
+              <td>Type checking, configured per repository and committed alongside the code it governs.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Editing it</h2>
+      <p>
+        Edit files on disk. The instance tree in Studio is a mirror of the
+        source tree, and a change made only in Studio is lost at the next sync.
+        The reverse is also true of deletion — removing a file removes the
+        instance on the next sync, so the tree never drifts from the source.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Consuming it</h2>
+      <p>
+        A game mode depends on the package rather than vendoring it. Everything
+        a consumer needs is reachable from the package's single public entry
+        point; reaching past it is a sign the boundary is in the wrong place,
+        not that the consumer is being demanding.
+      </p>
+
+      <div class="callout" aria-label="Not yet published">
+        <div class="callout__icon" aria-hidden="true">&#9432;</div>
+        <div class="callout__body">
+          <p>
+            The package is still in development and is not published to the
+            Creator Store. There is no version to depend on yet — see the
+            <a href="roadmap.html">roadmap</a> for what comes first.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Requirements</h2>
+      <ul>
+        <li>A place running the Minigame universe, or a place that is adopting it.</li>
+        <li>Rojo and Roblox Studio for local development.</li>
+        <li>No other runtime dependency.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

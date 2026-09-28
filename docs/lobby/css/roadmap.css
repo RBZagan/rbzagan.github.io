@@ -1,0 +1,84 @@
+/* ============================================================
+   Silver Glass — lobby/css/roadmap.css
+   Page-specific: the numbered stage list. No other page needs
+   this, which is why it lives here rather than in the shared
+   stylesheets.
+   ============================================================ */
+
+.stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: stage;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--sp-4);
+  position: relative;
+  margin: 0;
+  padding-bottom: var(--sp-5);
+}
+
+.stage:last-child { padding-bottom: 0; }
+
+/* The connecting rule stops at the last stage rather than trailing
+   off into empty space. */
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background: var(--hairline);
+}
+
+.stage__marker {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--accent-strong);
+  position: relative;
+  z-index: 1;
+}
+
+.stage__body {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.stage__title {
+  font-weight: 650;
+  color: var(--ink-900);
+  margin-bottom: var(--sp-1);
+}
+
+.stage__body p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-500);
+}
+
+@media (max-width: 480px) {
+  .stage { grid-template-columns: 32px 1fr; gap: var(--sp-3); }
+  .stage__marker { width: 32px; height: 32px; font-size: var(--fs-xs); }
+  .stage:not(:last-child)::before { left: 15px; top: 32px; }
+}
